@@ -1,0 +1,85 @@
+name: Bug report
+description: A plugin or skill isn't behaving the way it should.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The more precisely this describes the failure, the faster it's fixable -- ideally
+        enough to reproduce it without having to ask follow-up questions first.
+
+  - type: dropdown
+    id: plugin
+    attributes:
+      label: Plugin
+      options:
+        - core
+        - dev-review
+        - Not sure
+    validations:
+      required: true
+
+  - type: input
+    id: skill
+    attributes:
+      label: Skill (if it's one specific skill)
+      placeholder: e.g. pr-description
+    validations:
+      required: false
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: The observed fact -- what you saw, not why you think it happened (there's a field for that below).
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Numbered steps, including the exact request/prompt that triggered it.
+      placeholder: |
+        1. Install `core` and `dev-review`
+        2. Ask "..."
+        3. ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected vs. actual behavior
+      description: What should have happened, and what happened instead.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: product
+    attributes:
+      label: Where did this happen?
+      options:
+        - Claude Code
+        - Microsoft 365 Copilot
+        - Claude Enterprise (org sync)
+        - Not sure
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Plugin version
+      description: From the plugin's plugin.json, if you have it handy.
+      placeholder: e.g. core 0.2.0
+    validations:
+      required: false
+
+  - type: textarea
+    id: possible-cause
+    attributes:
+      label: Possible cause (optional)
+      description: If you have a theory, put it here -- kept separate from "What happened" so it's clear it's a guess, not an observed fact.
+    validations:
+      required: false
