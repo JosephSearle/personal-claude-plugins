@@ -1,0 +1,9 @@
+{
+  "name": "sales-deal-desk",
+  "displayName": "Sales Deal Desk",
+  "version": "0.1.0",
+  "description": "Deal desk for the Sales team: deal summaries and first-draft proposals.",
+  "author": {
+    "name": "Joseph Searle"
+  }
+}
