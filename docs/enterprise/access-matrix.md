@@ -6,13 +6,13 @@ Each cell is what a member of only that group gets. **Bold** is a group override
 
 Most to least permissive: Required > Installed by default > Available to install > Not available.
 
-| Plugin | Org default | `claude-engineering` | `claude-ai-team` | `claude-hr` | `claude-sales` | `claude-marketing` |
-| --- | --- | --- | --- | --- | --- | --- |
-| `core` | Installed by default | Installed by default | Installed by default | Installed by default | Installed by default | Installed by default |
-| `dev-review` | Not available | **Installed by default** | **Installed by default** | Not available | Not available | Not available |
-| `hr-recruiting` | Not available | Not available | Not available | **Installed by default** | Not available | Not available |
-| `sales-deal-desk` | Not available | Not available | Not available | Not available | **Installed by default** | **Available to install** |
-| `mktg-content` | Not available | Not available | Not available | Not available | **Available to install** | **Installed by default** |
+| Plugin | Stage | Org default | `claude-engineering` | `claude-ai-team` | `claude-hr` | `claude-sales` | `claude-marketing` | `claude-pilot` |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `core` | released | Installed by default | Installed by default | Installed by default | Installed by default | Installed by default | Installed by default | Installed by default |
+| `dev-review` | released | Not available | **Installed by default** | **Installed by default** | Not available | Not available | Not available | Not available |
+| `hr-recruiting` | released | Not available | Not available | Not available | **Installed by default** | Not available | Not available | Not available |
+| `sales-deal-desk` | released | Not available | Not available | Not available | Not available | **Installed by default** | **Available to install** | Not available |
+| `mktg-content` | released | Not available | Not available | Not available | Not available | **Available to install** | **Installed by default** | Not available |
 
 ## Console settings
 

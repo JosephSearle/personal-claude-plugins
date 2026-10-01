@@ -46,6 +46,37 @@ jobs:
         if: github.event_name == 'push'
         run: python scripts/validate.py
 
+  # Pilot testers download these from the pull request's checks page and upload
+  # them for themselves. See docs/runbooks/promote-plugin-release.md.
+  preview-packages:
+    if: github.event_name == 'pull_request'
+    needs: validate-marketplace
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Package changed plugins
+        id: package
+        run: |
+          python scripts/package-plugin.py --changed --base origin/${{ github.base_ref }}
+          if compgen -G "build/claude/*.zip" > /dev/null; then
+            echo "built=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Upload preview packages
+        if: steps.package.outputs.built == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: plugin-preview-pr-${{ github.event.pull_request.number }}
+          path: build/claude/*.zip
+          retention-days: 14
+
   shellcheck:
     runs-on: ubuntu-latest
     steps:

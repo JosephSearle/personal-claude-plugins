@@ -29,6 +29,9 @@ MATRIX_DOC = ROOT / "docs" / "enterprise" / "access-matrix.md"
 # Most permissive first. Claude applies the most permissive value across a member's groups.
 LEVELS = ["required", "installed-by-default", "available-to-install", "not-available"]
 RANK = {level: len(LEVELS) - i for i, level in enumerate(LEVELS)}
+# A pilot plugin is hidden from everyone except pilot groups. Promotion to released
+# is a reviewed change to this field plus the department grants.
+STAGES = ("pilot", "released")
 # Labels as the Claude admin console shows them.
 LABEL = {
     "required": "Required",
@@ -67,6 +70,7 @@ def check_policy(policy: dict, plugins: list[str]) -> tuple[list[str], list[str]
         if name not in plugins:
             errors.append(f"{where}: plugin '{name}' is not in marketplace.json. Remove the rule or add the plugin.")
 
+    pilot_groups = {g for g, meta in groups.items() if (meta or {}).get("pilot")}
     used_groups: set[str] = set()
     for name, rule in rules.items():
         rule = rule or {}
@@ -75,6 +79,20 @@ def check_policy(policy: dict, plugins: list[str]) -> tuple[list[str], list[str]
             errors.append(f"{where}: {name}: default '{default}' must be one of {', '.join(LEVELS)}")
             continue
         overrides = rule.get("groups") or {}
+        stage = rule.get("stage", "released")
+        if stage not in STAGES:
+            errors.append(f"{where}: {name}: stage '{stage}' must be one of {', '.join(STAGES)}")
+        elif stage == "pilot":
+            if default != "not-available":
+                errors.append(f"{where}: {name}: stage pilot needs default: not-available")
+            outside = [g for g in overrides if g not in pilot_groups]
+            if outside:
+                errors.append(
+                    f"{where}: {name}: stage pilot may grant only pilot groups, not {', '.join(outside)}. "
+                    "Set stage: released to grant departments."
+                )
+            if not any(g in pilot_groups for g in overrides):
+                errors.append(f"{where}: {name}: stage pilot needs a grant to a pilot group")
         for group, level in overrides.items():
             used_groups.add(group)
             if group not in groups:
@@ -100,7 +118,7 @@ def check_policy(policy: dict, plugins: list[str]) -> tuple[list[str], list[str]
             )
 
     for group in groups:
-        if group not in used_groups:
+        if group not in used_groups and group not in pilot_groups:
             warnings.append(f"{where}: group '{group}' is not used by any plugin rule")
     return errors, warnings
 
@@ -130,8 +148,8 @@ def render_matrix(policy: dict) -> str:
         "",
         "Most to least permissive: Required > Installed by default > Available to install > Not available.",
         "",
-        "| Plugin | Org default | " + " | ".join(f"`{g}`" for g in groups) + " |",
-        "| --- | --- | " + " | ".join("---" for _ in groups) + " |",
+        "| Plugin | Stage | Org default | " + " | ".join(f"`{g}`" for g in groups) + " |",
+        "| --- | --- | --- | " + " | ".join("---" for _ in groups) + " |",
     ]
     for name, rule in rules.items():
         overrides = rule.get("groups") or {}
@@ -139,7 +157,8 @@ def render_matrix(policy: dict) -> str:
         for group in groups:
             level = resolve(rule, [group])
             cells.append(f"**{LABEL[level]}**" if group in overrides else LABEL[level])
-        lines.append(f"| `{name}` | {LABEL[rule['default']]} | " + " | ".join(cells) + " |")
+        stage = rule.get("stage", "released")
+        lines.append(f"| `{name}` | {stage} | {LABEL[rule['default']]} | " + " | ".join(cells) + " |")
 
     lines += ["", "## Console settings", "", "Set these in Organization settings > Plugins & skills > Inventory.", ""]
     for name, rule in rules.items():

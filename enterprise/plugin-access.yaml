@@ -17,6 +17,12 @@
 #   - A member in no group gets the org default.
 # So an override can only widen access safely. To keep a plugin inside a
 # department, set default: not-available and grant the department group.
+#
+# Stage (optional, default released):
+#   pilot     new plugin, first release. Hidden from everyone except pilot groups.
+#   released  granted to departments.
+# Promoting a plugin from pilot to released follows
+# docs/runbooks/promote-plugin-release.md.
 
 version: 1
 
@@ -33,6 +39,9 @@ groups:
     description: Sales and account management
   claude-marketing:
     description: Marketing and communications
+  claude-pilot:
+    description: Department champions and pilot testers. Gets plugins in stage pilot.
+    pilot: true
 
 plugins:
   core:
