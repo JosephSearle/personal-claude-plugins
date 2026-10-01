@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  pull_request:
+    paths:
+      - 'plugins/**'
+      - 'scripts/**'
+      - '.claude-plugin/**'
+      - '.github/workflows/ci.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'plugins/**'
+      - 'scripts/**'
+      - '.claude-plugin/**'
+      - '.github/workflows/ci.yml'
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-marketplace:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Validate marketplace (pull request)
+        if: github.event_name == 'pull_request'
+        run: python scripts/validate.py --base origin/${{ github.base_ref }}
+
+      - name: Validate marketplace (push)
+        if: github.event_name == 'push'
+        run: python scripts/validate.py
+
+  shellcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ludeeus/action-shellcheck@master
+        with:
+          scandir: './scripts'

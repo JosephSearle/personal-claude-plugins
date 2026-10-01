@@ -1,36 +1,21 @@
 {
-  "name": "acme-plugins",
+  "name": "personal-plugins",
   "owner": {
-    "name": "Acme AI Department"
+    "name": "Joseph Searle"
   },
   "plugins": [
     {
-      "name": "acme-core",
-      "source": "./plugins/acme-core",
-      "description": "Company-wide skills: brand voice and data handling. Required for everyone."
-    },
-    {
-      "name": "hr-recruiting",
-      "source": "./plugins/hr-recruiting",
-      "description": "HR recruiting workflows: job adverts and interview scorecards."
-    },
-    {
-      "name": "sales-deal-desk",
-      "source": "./plugins/sales-deal-desk",
-      "description": "Sales deal desk workflows: deal summaries and proposal drafts."
-    },
-    {
-      "name": "mktg-content",
-      "source": "./plugins/mktg-content",
-      "description": "Marketing content workflows: content briefs and campaign plans."
+      "name": "core",
+      "source": "./plugins/core",
+      "description": "Personal-wide skills for every session: keeping secrets and personal data out of outputs, plus security, compliance, brand and UX policies that other plugins build on."
     },
     {
       "name": "dev-review",
       "source": "./plugins/dev-review",
-      "description": "Engineering review workflows: pull request review and descriptions."
+      "description": "Pull request workflow: review, descriptions, templates and Conventional Commits."
     }
   ],
   "metadata": {
-    "description": "Demo of a company plugin marketplace: a core plugin plus department plugins for HR, Sales, Marketing and Dev."
+    "description": "Personal plugin marketplace: a core plugin of shared policies plus a dev-review example plugin."
   }
 }

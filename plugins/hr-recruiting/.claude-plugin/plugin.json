@@ -1,9 +1,0 @@
-{
-  "name": "hr-recruiting",
-  "displayName": "HR Recruiting",
-  "version": "0.1.0",
-  "description": "HR recruiting workflows: job adverts and interview scorecards.",
-  "author": {
-    "name": "Acme AI Department"
-  }
-}

@@ -1,23 +1,8 @@
-# Every change needs approval from the owning department champion
-# and the AI department. Replace these placeholder teams with real ones.
-
-# Default: AI department reviews everything
-*                                   @acme/ai-department
-
+# Personal repository: one owner for everything.
+*                                   @JosephSearle
 # Marketplace definition and tooling
-/.claude-plugin/                    @acme/ai-department
-/scripts/                           @acme/ai-department
-/.github/                           @acme/ai-department
-
-# Core plugin: AI department only
-/plugins/acme-core/                 @acme/ai-department
-
-# Department plugins: champion + AI department
-/plugins/hr-recruiting/             @acme/hr-champions @acme/ai-department
-/plugins/sales-deal-desk/           @acme/sales-champions @acme/ai-department
-/plugins/mktg-content/              @acme/marketing-champions @acme/ai-department
-/plugins/dev-review/                @acme/dev-champions @acme/ai-department
-
-# Anything that connects to systems or runs code needs security review
-/plugins/*/.mcp.json                @acme/security @acme/ai-department
-/plugins/*/hooks/                   @acme/security @acme/ai-department
+/.claude-plugin/                    @JosephSearle
+/scripts/                           @JosephSearle
+/.github/                           @JosephSearle
+/plugins/core/                      @JosephSearle
+/plugins/dev-review/                @JosephSearle
