@@ -1,0 +1,9 @@
+{
+  "name": "core",
+  "displayName": "Core",
+  "version": "0.1.0",
+  "description": "Personal-wide skills required for every session: keeping personal and confidential data out of outputs.",
+  "author": {
+    "name": "Joseph Searle"
+  }
+}

@@ -5,7 +5,7 @@ description: "Writes a clear pull request title and description from a diff. Use
 
 # Pull request description
 
-Write a description that lets a reviewer understand the change before reading the code. Apply the `brand-voice` skill for tone.
+Write a description that lets a reviewer understand the change before reading the code.
 
 ## Inputs
 

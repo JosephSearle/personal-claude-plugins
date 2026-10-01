@@ -1,9 +1,0 @@
-{
-  "name": "acme-core",
-  "displayName": "Acme Core",
-  "version": "0.1.0",
-  "description": "Company-wide skills: brand voice and data handling. Required for everyone.",
-  "author": {
-    "name": "Acme AI Department"
-  }
-}
