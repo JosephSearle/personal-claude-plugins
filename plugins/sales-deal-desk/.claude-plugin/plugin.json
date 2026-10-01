@@ -1,0 +1,9 @@
+{
+  "name": "sales-deal-desk",
+  "displayName": "Sales Deal Desk",
+  "version": "0.1.0",
+  "description": "Sales deal desk workflows: deal summaries and proposal drafts.",
+  "author": {
+    "name": "Acme AI Department"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "mktg-content",
+  "displayName": "Marketing Content",
+  "version": "0.1.0",
+  "description": "Marketing content workflows: content briefs and campaign plans.",
+  "author": {
+    "name": "Acme AI Department"
+  }
+}

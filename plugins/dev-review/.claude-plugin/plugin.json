@@ -1,0 +1,9 @@
+{
+  "name": "dev-review",
+  "displayName": "Dev Review",
+  "version": "0.1.0",
+  "description": "Engineering review workflows: pull request review and descriptions.",
+  "author": {
+    "name": "Acme AI Department"
+  }
+}
