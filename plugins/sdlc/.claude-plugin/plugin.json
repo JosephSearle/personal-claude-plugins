@@ -1,0 +1,9 @@
+{
+  "name": "sdlc",
+  "displayName": "SDLC",
+  "version": "0.1.0",
+  "description": "AI-native SDLC: capture intent, design the spec, file issues, record decisions and run spikes.",
+  "author": {
+    "name": "Joseph Searle"
+  }
+}

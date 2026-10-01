@@ -47,6 +47,12 @@ SECRET_PATTERNS = {
     "UK National Insurance number": re.compile(r"\b[A-CEGHJ-PR-TW-Z]{2}\s?\d{2}\s?\d{2}\s?\d{2}\s?[A-D]\b"),
 }
 
+# Placeholder domains used in documentation examples; not real addresses.
+PLACEHOLDER_EMAIL_DOMAINS = ("example.com", "example.org", "example.net", "project.org")
+
+# Phrases that tell Claude when to load a skill.
+TRIGGER_PHRASE = re.compile(r"\b(use (this skill )?when(ever)?|triggers?|whenever|asks? (to|for)|wants? (to|a))\b", re.I)
+
 errors: list[str] = []
 warnings: list[str] = []
 
@@ -105,8 +111,8 @@ def check_skill(skill_dir: Path, where: str) -> None:
         text = str(description).strip()
         if not 1 <= len(text) <= MAX_DESCRIPTION:
             error(f"{skill_file.relative_to(ROOT)}: description must be 1-{MAX_DESCRIPTION} characters")
-        if "use when" not in text.lower():
-            warn(f"{skill_file.relative_to(ROOT)}: description has no 'Use when' trigger phrases")
+        if not TRIGGER_PHRASE.search(text):
+            warn(f"{skill_file.relative_to(ROOT)}: description has no trigger phrases (e.g. 'Use when ...')")
 
 
 def check_plugin(entry: dict, seen: set[str]) -> None:
@@ -176,8 +182,11 @@ def check_secrets() -> None:
             continue
         text = path.read_text(encoding="utf-8", errors="ignore")
         for label, pattern in SECRET_PATTERNS.items():
-            if pattern.search(text):
+            for match in pattern.finditer(text):
+                if label == "email address" and match.group(0).lower().endswith(PLACEHOLDER_EMAIL_DOMAINS):
+                    continue
                 error(f"{path.relative_to(ROOT)}: possible {label}")
+                break
 
 
 def git(*args: str) -> str:

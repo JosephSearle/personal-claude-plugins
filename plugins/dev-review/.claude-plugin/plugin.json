@@ -1,8 +1,8 @@
 {
   "name": "dev-review",
   "displayName": "Dev Review",
-  "version": "0.1.0",
-  "description": "Engineering review workflows: pull request review and descriptions.",
+  "version": "0.2.0",
+  "description": "Pull request workflow: review, descriptions, templates and Conventional Commits.",
   "author": {
     "name": "Joseph Searle"
   }

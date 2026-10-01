@@ -1,0 +1,9 @@
+{
+  "name": "security-policy",
+  "displayName": "Security Policy",
+  "version": "0.1.0",
+  "description": "Personal security and compliance policy: baseline, API, LLM, MCP and agent security, plus UK/EU GDPR and EU AI Act.",
+  "author": {
+    "name": "Joseph Searle"
+  }
+}
