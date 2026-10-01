@@ -6,6 +6,8 @@ on:
       - 'plugins/**'
       - 'scripts/**'
       - '.claude-plugin/**'
+      - 'enterprise/**'
+      - 'docs/enterprise/**'
       - '.github/workflows/ci.yml'
   push:
     branches: [main]
@@ -13,6 +15,8 @@ on:
       - 'plugins/**'
       - 'scripts/**'
       - '.claude-plugin/**'
+      - 'enterprise/**'
+      - 'docs/enterprise/**'
       - '.github/workflows/ci.yml'
 
 concurrency:

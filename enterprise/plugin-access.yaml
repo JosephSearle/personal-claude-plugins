@@ -1,0 +1,62 @@
+# Enterprise plugin access policy.
+#
+# The intended state of Organization settings > Plugins & skills > Inventory on
+# Claude Enterprise. The console is where it takes effect: an admin applies each
+# change there by hand (Default access, Group access...). This file is the
+# reviewed record of what the console should say, and CI checks it.
+#
+# Access levels, most to least permissive:
+#   required              pre-installed, members cannot turn it off
+#   installed-by-default  pre-installed, members can turn it off
+#   available-to-install  listed on Discover, members add it themselves
+#   not-available         hidden; members cannot see or add it
+#
+# How Claude resolves a member's access to a plugin:
+#   - Each group uses its override for the plugin, or the org default if none.
+#   - A member in several groups gets the MOST permissive value.
+#   - A member in no group gets the org default.
+# So an override can only widen access safely. To keep a plugin inside a
+# department, set default: not-available and grant the department group.
+
+version: 1
+
+# Claude groups. On Enterprise, provision these from Microsoft Entra ID by SCIM
+# so membership follows Entra and nobody maintains it in two places.
+groups:
+  claude-engineering:
+    description: Software engineers
+  claude-ai-team:
+    description: AI department. Maintains this marketplace.
+  claude-hr:
+    description: People and HR
+  claude-sales:
+    description: Sales and account management
+  claude-marketing:
+    description: Marketing and communications
+
+plugins:
+  core:
+    default: installed-by-default
+
+  dev-review:
+    default: not-available
+    groups:
+      claude-engineering: installed-by-default
+      claude-ai-team: installed-by-default
+
+  hr-recruiting:
+    default: not-available
+    groups:
+      claude-hr: installed-by-default
+
+  sales-deal-desk:
+    default: not-available
+    groups:
+      claude-sales: installed-by-default
+      claude-marketing: available-to-install
+
+  mktg-content:
+    default: not-available
+    groups:
+      claude-marketing: installed-by-default
+      claude-sales: available-to-install

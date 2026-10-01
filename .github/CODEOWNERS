@@ -1,8 +1,22 @@
 # Personal repository: one owner for everything.
+# On Claude Enterprise, replace each @JosephSearle below with the team named in
+# the comment above it, e.g. @your-org/hr-champions. A champion approves every
+# change to their department's plugin before it merges and syncs.
 *                                   @JosephSearle
-# Marketplace definition and tooling
+
+# Marketplace definition and tooling. Enterprise owner: @your-org/ai-team
 /.claude-plugin/                    @JosephSearle
 /scripts/                           @JosephSearle
 /.github/                           @JosephSearle
+
+# Who sees which plugin. Enterprise owners: @your-org/ai-team and @your-org/identity-admins
+/enterprise/                        @JosephSearle
+
+# Company-wide plugins. Enterprise owner: @your-org/ai-team
 /plugins/core/                      @JosephSearle
+
+# Department plugins. Enterprise owner: that department's champions team
 /plugins/dev-review/                @JosephSearle
+/plugins/hr-recruiting/             @JosephSearle
+/plugins/sales-deal-desk/           @JosephSearle
+/plugins/mktg-content/              @JosephSearle
