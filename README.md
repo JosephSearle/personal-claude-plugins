@@ -89,8 +89,10 @@ plugins/<name>/
   skills/<skill>/SKILL.md           the skills (plus references/, assets/, scripts/)
 enterprise/plugin-access.yaml       who sees which plugin on Claude Enterprise
 docs/enterprise/                    Enterprise runbook and generated access matrix
+docs/runbooks/                      release and rollback runbooks
 scripts/validate.py                 repo checks
 scripts/access.py                   access policy checks, matrix and resolver
+scripts/package-plugin.py           pilot zips for upload in claude.ai
 scripts/build-m365.sh               Copilot packages
 .github/CODEOWNERS                  who approves what
 .github/workflows/ci.yml            CI
@@ -131,7 +133,7 @@ Every change goes through a pull request and must pass CI before merging.
    - every plugin has an Enterprise access rule, and the access matrix is current
    - no secrets or personal data
    - the plugin version is bumped when its files change
-2. Try the change in a live Claude Code session before merging.
+2. The department champion pilot-tests the pull request build and approves. See [Promote a plugin release](docs/runbooks/promote-plugin-release.md).
 
 See [Contributing](#contributing) for how to run these checks locally before opening a pull request.
 
@@ -142,7 +144,8 @@ See [Contributing](#contributing) for how to run these checks locally before ope
 - MAJOR: skill renamed or removed. MINOR: skill added. PATCH: wording fix.
 - Record each release in [CHANGELOG.md](CHANGELOG.md), newest first.
 - Claude organisation sync reads the default branch only. A tag alone releases nothing. Merge the pull request to release.
-- For a beta channel, sync a second marketplace from a `beta` branch to a pilot group.
+- Organisation sync reads only the default branch, so there is no beta branch. Pilot testers try a pull request's build, and new plugins start at `stage: pilot`.
+- Follow [Promote a plugin release](docs/runbooks/promote-plugin-release.md) for every release and rollback.
 - Never rename a plugin. The name is the install identifier.
 
 ## Microsoft 365 Copilot

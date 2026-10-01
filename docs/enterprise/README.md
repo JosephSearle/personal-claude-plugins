@@ -76,7 +76,7 @@ Prerequisites: Enterprise plan; Cowork and Skills enabled for the organisation; 
 | Change who sees a plugin | Pull request to `plugin-access.yaml`, then an admin applies it in the console | AI team and identity admins |
 | Add someone to a department | Entra ID group membership | Their manager, through the usual IT process |
 
-New plugins should start as `default: not-available` with no group grants, so nothing reaches members until the rule is reviewed.
+New plugins start at `stage: pilot`: hidden from everyone except `claude-pilot`. Promoting to `stage: released` is a reviewed pull request. Every release and rollback follows [Promote a plugin release](../runbooks/promote-plugin-release.md).
 
 Group overrides survive re-syncs. They are removed only if the plugin is deleted from the marketplace.
 
@@ -108,12 +108,16 @@ Verified:
 
 - Group-level plugin access, most-permissive resolution, SCIM groups in the picker, and overrides surviving re-sync are documented for Enterprise ([Manage plugins for your organization](https://support.claude.com/en/articles/13837433-manage-plugins-for-your-organization)).
 - The policy file, checks and resolver run locally and in CI.
+- Organisation sync reads only the repository's default branch ([Roll out a plugin](https://claude.com/docs/plugins/org-rollout#update-through-organization-settings)), so a beta branch cannot feed a pilot marketplace. Pilots use per-person uploads of the pull request build, and a `pilot` stage for new plugins.
+- Copilot packages from `build-m365.sh` keep the same app ID across builds and take their version from `plugin.json`, so an upload updates the existing app.
 
 Not verified:
 
 - Applying the policy in a live Enterprise console. Needs Enterprise admin access.
 - An admin API to apply group access from CI. None was found in the help centre, so the console step is manual. If one becomes available, `plugin-access.yaml` is the input it would take.
-- Exact wording of the Policy tab sharing and publishing options.
+- Exact wording of the Policy tab sharing and publishing options, including the one that lets members upload plugins for themselves.
+- Uploading a pull request zip through Customize > Plugins alongside the organisation copy of the same plugin.
+- That a marketplace's default access applies to plugins added by later syncs.
 
 Not possible on Team plans: group access is Enterprise only. A Team plan can set only the organisation-wide level per plugin.
 
