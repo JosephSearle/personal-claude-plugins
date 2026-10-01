@@ -1,6 +1,6 @@
 # personal-plugins
 
-[![validate](https://github.com/JosephSearle/personal-claude-plugins/actions/workflows/validate.yml/badge.svg)](https://github.com/JosephSearle/personal-claude-plugins/actions/workflows/validate.yml)
+[![CI](https://github.com/JosephSearle/personal-claude-plugins/actions/workflows/ci.yml/badge.svg)](https://github.com/JosephSearle/personal-claude-plugins/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 > A personal Claude Code plugin marketplace: a core plugin of shared policies plus a dev-review example, versioned in Git and usable in Claude and Microsoft 365 Copilot.
@@ -83,7 +83,7 @@ plugins/<name>/
 scripts/validate.py                 repo checks
 scripts/build-m365.sh               Copilot packages
 .github/CODEOWNERS                  who approves what
-.github/workflows/validate.yml      CI
+.github/workflows/ci.yml            CI
 ```
 
 Skills were imported from [JosephSearle/skills](https://github.com/JosephSearle/skills) `catalog/`. Their `evals/` folders stay in that repo, so test fixtures are not shipped to installs. Other catalogue skills (SDLC, repository docs, prompts, incidents) are not imported yet; they can become further plugins when needed.
