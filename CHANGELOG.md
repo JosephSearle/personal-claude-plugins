@@ -3,12 +3,7 @@
 ## Unreleased
 
 Added:
-- `sdlc`: `sdlc-plan`, `sdlc-design`, `playbook`, `gh-issue-filing`, `gh-issue-template`, `architectural-decision-record`, `spike`.
-- `repo-docs`: `tech-doc-readme`, `tech-doc-changelog`, `tech-doc-contributing`, `tech-doc-governance`, `tech-doc-codeowners`, `tech-doc-security`, `tech-doc-support`, `tech-doc-code-of-conduct`.
-- `security-policy`: `security-baseline`, `security-api`, `security-llm`, `security-mcp`, `security-agent`, `compliance-gdpr`, `compliance-eu-ai-act`.
-- `ai-engineering`: `prompt-engineering`, `prompt-evaluation`.
-- `ops-incident`: `runbook`, `post-incident-calibration`, `post-incident-report`.
-- `personal-standards`: `brand-personal`, `ux-personal`.
+- `core` 0.2.0: `security-baseline`, `security-api`, `security-llm`, `security-mcp`, `security-agent`, `compliance-gdpr`, `compliance-eu-ai-act`, `brand-personal`, `ux-personal`. Policies live in core so every plugin can use them.
 - `dev-review` 0.2.0: `pr-template`, `conventional-commits`.
 
 Changed:

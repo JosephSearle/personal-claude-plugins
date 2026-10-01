@@ -1,9 +1,0 @@
-{
-  "name": "ops-incident",
-  "displayName": "Ops and Incident",
-  "version": "0.1.0",
-  "description": "Operations and incidents: runbooks, post-incident calibration and the final incident report.",
-  "author": {
-    "name": "Joseph Searle"
-  }
-}

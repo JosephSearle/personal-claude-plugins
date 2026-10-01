@@ -1,8 +1,8 @@
 {
   "name": "core",
   "displayName": "Core",
-  "version": "0.1.0",
-  "description": "Personal-wide skills required for every session: keeping personal and confidential data out of outputs.",
+  "version": "0.2.0",
+  "description": "Personal-wide skills for every session: keeping secrets and personal data out of outputs, plus security, compliance, brand and UX policies that other plugins build on.",
   "author": {
     "name": "Joseph Searle"
   }

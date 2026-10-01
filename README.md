@@ -3,7 +3,7 @@
 [![validate](https://github.com/JosephSearle/personal-claude-plugins/actions/workflows/validate.yml/badge.svg)](https://github.com/JosephSearle/personal-claude-plugins/actions/workflows/validate.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-> A personal Claude Code plugin marketplace: my SDLC, docs, security, prompt and incident skills in eight plugins, versioned in Git and usable in Claude and Microsoft 365 Copilot.
+> A personal Claude Code plugin marketplace: a core plugin of shared policies plus a dev-review example, versioned in Git and usable in Claude and Microsoft 365 Copilot.
 
 My own skills for day-to-day AI engineering and SDLC work, kept in one marketplace so I can install the same set wherever I use Claude Code. Skills are authored in the plugins here; each plugin is one on/off switch for a kind of work.
 
@@ -29,10 +29,10 @@ My own skills for day-to-day AI engineering and SDLC work, kept in one marketpla
 ```
 /plugin marketplace add JosephSearle/personal-claude-plugins
 /plugin install core@personal-plugins
-/plugin install sdlc@personal-plugins
+/plugin install dev-review@personal-plugins
 ```
 
-Install `core` everywhere, then add the plugins that match the work in front of you (see [Usage](#usage)).
+Install `core` everywhere, then add `dev-review` when working on branches and pull requests.
 
 Also usable in Microsoft 365 Copilot — see [Microsoft 365 Copilot](#microsoft-365-copilot) — and can be synced org-wide via Claude Enterprise (Organization settings > Plugins & skills > Add > Sync from GitHub; the repo must be private or internal, public repos are rejected).
 
@@ -42,55 +42,37 @@ Ask in plain language. Skills load when the request matches their description.
 
 | Plugin | Skills | Install when |
 | --- | --- | --- |
-| `core` | `data-handling` | Always. Keeps secrets and personal data out of outputs. |
+| `core` | `data-handling`, `security-baseline`, `security-api`, `security-llm`, `security-mcp`, `security-agent`, `compliance-gdpr`, `compliance-eu-ai-act`, `brand-personal`, `ux-personal` | Always. Holds the policies every other plugin builds on. |
 | `dev-review` | `pr-review`, `pr-description`, `pr-template`, `conventional-commits` | Working through branches, commits and pull requests. |
-| `sdlc` | `sdlc-plan`, `sdlc-design`, `playbook`, `gh-issue-filing`, `gh-issue-template`, `architectural-decision-record`, `spike` | Taking an idea from intent to spec, or recording a decision or spike. |
-| `repo-docs` | `tech-doc-readme`, `tech-doc-changelog`, `tech-doc-contributing`, `tech-doc-governance`, `tech-doc-codeowners`, `tech-doc-security`, `tech-doc-support`, `tech-doc-code-of-conduct` | Creating or auditing repository documents. |
-| `security-policy` | `security-baseline`, `security-api`, `security-llm`, `security-mcp`, `security-agent`, `compliance-gdpr`, `compliance-eu-ai-act` | Designing a project or spec that needs a security or compliance review. |
-| `ai-engineering` | `prompt-engineering`, `prompt-evaluation` | Writing prompts for Claude and measuring them. |
-| `ops-incident` | `runbook`, `post-incident-calibration`, `post-incident-report` | Writing runbooks or running a post-incident review. |
-| `personal-standards` | `brand-personal`, `ux-personal` | My own projects only: voice, naming, UX and accessibility. |
 
-`brand-personal`, `ux-personal` and the `security-policy` skills state they apply to my own projects, not an employer's. They live in their own plugins so they stay off in work contexts.
+`brand-personal`, `ux-personal` and the security and compliance skills state they apply to my own projects, not an employer's. Disable `core` in a work context that has its own policies.
 
 Example requests:
 
 | Say | Skill |
 | --- | --- |
 | "Write the PR description for this branch" | `pr-description` |
-| "Capture this idea as an intent.md" | `sdlc-plan` |
-| "Audit my README" | `tech-doc-readme` |
-| "Harden this system prompt" | `prompt-engineering` |
+| "Review this pull request" | `pr-review` |
 | "Review the security of this MCP server design" | `security-mcp` |
+| "Does this feature need a GDPR review?" | `compliance-gdpr` |
+| "Redact this log" | `data-handling` |
 
 ## Structure
 
 ```mermaid
 flowchart TB
     subgraph repo["Git repo: one marketplace"]
-        core["core<br/>data-handling"]
+        core["core<br/>data-handling, security, compliance, brand, UX"]
         dev["dev-review<br/>PR workflow"]
-        sdlc["sdlc<br/>intent to spec"]
-        docs["repo-docs<br/>repository documents"]
-        sec["security-policy<br/>security and compliance"]
-        ai["ai-engineering<br/>prompts and evals"]
-        ops["ops-incident<br/>runbooks and reviews"]
-        std["personal-standards<br/>brand and UX"]
     end
     all(["Every session"]) -->|Always| core
     all -->|As needed| dev
-    all -->|As needed| sdlc
-    all -->|As needed| docs
-    all -->|As needed| sec
-    all -->|As needed| ai
-    all -->|As needed| ops
-    all -->|Own projects only| std
+    dev -.->|"names policies"| core
 ```
 
 - **Skills live inside the plugin that owns them.** A plugin installs as a cached copy of its own folder, so a skill outside it would not ship.
-- **Group by shared use.** `sdlc-design` links to `../sdlc-plan/SKILL.md`, so those two stay in the same plugin. Skills that assume another skill by name (for example `security-*` assume `security-baseline`) sit together.
-- **Core** holds what every session needs.
-- Plugins do not import each other. All installed skills load into one session.
+- **Core holds the policies.** Any plugin can name a core skill in its instructions (for example "apply `security-baseline`"). Policies are written once and apply everywhere.
+- Plugins do not import each other. All installed skills load into one session, so core is present by convention (install it first).
 - Keep each plugin to 10 skills or fewer. Copilot allows 20 per package.
 
 ```
@@ -104,7 +86,7 @@ scripts/build-m365.sh               Copilot packages
 .github/workflows/validate.yml      CI
 ```
 
-Skills were imported from [JosephSearle/skills](https://github.com/JosephSearle/skills) `catalog/`. Their `evals/` folders are left behind in that repo, so test fixtures are not shipped to installs.
+Skills were imported from [JosephSearle/skills](https://github.com/JosephSearle/skills) `catalog/`. Their `evals/` folders stay in that repo, so test fixtures are not shipped to installs. Other catalogue skills (SDLC, repository docs, prompts, incidents) are not imported yet; they can become further plugins when needed.
 
 ## Skills only
 
@@ -154,7 +136,7 @@ WEBSITE_URL=https://example.com \
 
 Output: `build/m365/<plugin>.zip`. The script imports each plugin with `atk`, sets manifest schema v1.28 and the display name, validates, and packages.
 
-Verified: all eight plugins build and pass `atk validate`.
+Verified: both plugins build and pass `atk validate`.
 Not verified: upload and deployment in a Microsoft 365 tenant.
 
 Notes:

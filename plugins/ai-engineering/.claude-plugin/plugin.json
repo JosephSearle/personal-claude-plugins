@@ -1,9 +1,0 @@
-{
-  "name": "ai-engineering",
-  "displayName": "AI Engineering",
-  "version": "0.1.0",
-  "description": "Prompt work for Claude: draft and harden prompts, then measure them with evals.",
-  "author": {
-    "name": "Joseph Searle"
-  }
-}

@@ -7,45 +7,15 @@
     {
       "name": "core",
       "source": "./plugins/core",
-      "description": "Personal-wide skills required for every session: keeping secrets and personal data out of outputs."
+      "description": "Personal-wide skills for every session: keeping secrets and personal data out of outputs, plus security, compliance, brand and UX policies that other plugins build on."
     },
     {
       "name": "dev-review",
       "source": "./plugins/dev-review",
       "description": "Pull request workflow: review, descriptions, templates and Conventional Commits."
-    },
-    {
-      "name": "sdlc",
-      "source": "./plugins/sdlc",
-      "description": "AI-native SDLC: capture intent, design the spec, file issues, record decisions and run spikes."
-    },
-    {
-      "name": "repo-docs",
-      "source": "./plugins/repo-docs",
-      "description": "Repository documents: README, changelog, contributing, governance, CODEOWNERS, security, support and code of conduct."
-    },
-    {
-      "name": "security-policy",
-      "source": "./plugins/security-policy",
-      "description": "Personal security and compliance policy: baseline, API, LLM, MCP and agent security, plus UK/EU GDPR and EU AI Act."
-    },
-    {
-      "name": "ai-engineering",
-      "source": "./plugins/ai-engineering",
-      "description": "Prompt work for Claude: draft and harden prompts, then measure them with evals."
-    },
-    {
-      "name": "ops-incident",
-      "source": "./plugins/ops-incident",
-      "description": "Operations and incidents: runbooks, post-incident calibration and the final incident report."
-    },
-    {
-      "name": "personal-standards",
-      "source": "./plugins/personal-standards",
-      "description": "Standards for my own projects only: brand voice and naming, plus UX and accessibility."
     }
   ],
   "metadata": {
-    "description": "Personal plugin marketplace: my SDLC, docs, security, prompt and incident skills, grouped so each context loads only what it needs."
+    "description": "Personal plugin marketplace: a core plugin of shared policies plus a dev-review example plugin."
   }
 }

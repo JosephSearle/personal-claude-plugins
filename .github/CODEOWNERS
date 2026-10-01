@@ -1,16 +1,8 @@
 # Personal repository: one owner for everything.
 *                                   @JosephSearle
-
 # Marketplace definition and tooling
 /.claude-plugin/                    @JosephSearle
 /scripts/                           @JosephSearle
 /.github/                           @JosephSearle
-
 /plugins/core/                      @JosephSearle
 /plugins/dev-review/                @JosephSearle
-/plugins/sdlc/                      @JosephSearle
-/plugins/repo-docs/                 @JosephSearle
-/plugins/security-policy/           @JosephSearle
-/plugins/ai-engineering/            @JosephSearle
-/plugins/ops-incident/              @JosephSearle
-/plugins/personal-standards/        @JosephSearle

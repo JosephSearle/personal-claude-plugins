@@ -1,9 +1,0 @@
-{
-  "name": "repo-docs",
-  "displayName": "Repo Docs",
-  "version": "0.1.0",
-  "description": "Repository documents: README, changelog, contributing, governance, CODEOWNERS, security, support and code of conduct.",
-  "author": {
-    "name": "Joseph Searle"
-  }
-}
