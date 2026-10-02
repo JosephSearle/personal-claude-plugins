@@ -5,8 +5,8 @@ Checks the rules both Claude org sync and Microsoft 365 Copilot (Cowork)
 enforce, plus repo governance rules.
 
 Usage:
-    python scripts/validate.py
-    python scripts/validate.py --base origin/main   # also require version bumps
+    uv run scripts/validate.py
+    uv run scripts/validate.py --base origin/main   # also require version bumps
 """
 
 from __future__ import annotations
@@ -19,6 +19,9 @@ import sys
 from pathlib import Path
 
 import yaml
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import access  # noqa: E402  (sibling script: Enterprise access policy)
 
 ROOT = Path(__file__).resolve().parent.parent
 MARKETPLACE = ROOT / ".claude-plugin" / "marketplace.json"
@@ -189,6 +192,26 @@ def check_secrets() -> None:
                 break
 
 
+def check_access_policy(plugin_names: list[str]) -> None:
+    """Enterprise group access: policy covers every plugin and the matrix doc is current."""
+    if not access.POLICY.exists():
+        warn("enterprise/plugin-access.yaml not found. Skipping Enterprise access checks.")
+        return
+    try:
+        policy = access.load_policy()
+    except yaml.YAMLError as exc:
+        error(f"enterprise/plugin-access.yaml: invalid YAML ({exc})")
+        return
+    policy_errors, policy_warnings = access.check_policy(policy, plugin_names)
+    errors.extend(policy_errors)
+    warnings.extend(policy_warnings)
+    if policy_errors:
+        return
+    current = access.MATRIX_DOC.read_text(encoding="utf-8") if access.MATRIX_DOC.exists() else ""
+    if current != access.render_matrix(policy):
+        error("docs/enterprise/access-matrix.md is out of date. Run: uv run scripts/access.py matrix --write")
+
+
 def git(*args: str) -> str:
     result = subprocess.run(["git", *args], cwd=ROOT, capture_output=True, text=True)
     if result.returncode != 0:
@@ -236,6 +259,7 @@ def main() -> int:
 
     names = [e.get("name", "") for e in entries]
     check_codeowners(names)
+    check_access_policy(names)
     check_secrets()
     if args.base:
         check_version_bumps(args.base, names)

@@ -1,0 +1,9 @@
+{
+  "name": "hr-recruiting",
+  "displayName": "HR Recruiting",
+  "version": "0.1.0",
+  "description": "Recruitment for the HR team: job adverts and structured interview scorecards.",
+  "author": {
+    "name": "Joseph Searle"
+  }
+}

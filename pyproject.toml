@@ -1,0 +1,11 @@
+[project]
+name = "personal-claude-plugins"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "lefthook>=2.1.16",
+    "pyyaml>=6.0.2",
+]
+
+[tool.uv]
+package = false

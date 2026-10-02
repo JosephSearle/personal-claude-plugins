@@ -13,9 +13,24 @@
       "name": "dev-review",
       "source": "./plugins/dev-review",
       "description": "Pull request workflow: review, descriptions, templates and Conventional Commits."
+    },
+    {
+      "name": "hr-recruiting",
+      "source": "./plugins/hr-recruiting",
+      "description": "Recruitment for the HR team: job adverts and structured interview scorecards."
+    },
+    {
+      "name": "sales-deal-desk",
+      "source": "./plugins/sales-deal-desk",
+      "description": "Deal desk for the Sales team: deal summaries and first-draft proposals."
+    },
+    {
+      "name": "mktg-content",
+      "source": "./plugins/mktg-content",
+      "description": "Content for the Marketing team: content briefs and campaign plans."
     }
   ],
   "metadata": {
-    "description": "Personal plugin marketplace: a core plugin of shared policies plus a dev-review example plugin."
+    "description": "Personal plugin marketplace: a core plugin of shared policies, a dev-review plugin, and example department plugins scoped by group on Claude Enterprise."
   }
 }

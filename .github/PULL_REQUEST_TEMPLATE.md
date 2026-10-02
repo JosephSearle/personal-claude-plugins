@@ -20,4 +20,6 @@
 
 - If this touches a plugin, bump its version in `plugins/<name>/.claude-plugin/plugin.json` and
   add a `CHANGELOG.md` entry -- `scripts/validate.py --base` fails the PR otherwise.
+- Releasing a plugin? Follow `docs/runbooks/promote-plugin-release.md`:
+  pilot zip from this PR's CI artifacts, champion sign-off, then merge.
 - `Closes #123` auto-closes the issue, but only when this PR merges into `main`.
