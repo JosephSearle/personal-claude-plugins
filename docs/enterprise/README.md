@@ -65,7 +65,7 @@ Prerequisites: Enterprise plan; Cowork and Skills enabled for the organisation; 
 4. **Add the marketplace.** Organization settings > Plugins & skills > Marketplaces > Add > Sync from GitHub. Enter `owner/repo`. Keep "Sync automatically" on.
 5. **Apply the policy.** For each plugin in [access-matrix.md](access-matrix.md) under "Console settings": Inventory > plugin menu > **Default access**, then **Group access... > Add groups**.
 6. **Lock down side doors.** In the **Policy** tab, restrict who members can share their own plugins with, and require review for plugins submitted to the organisation library. Otherwise a member can pass a copy of a department plugin around the catalogue.
-7. **Verify.** Sign in as a test member of one group. Confirm Customize > Plugins shows exactly what `python scripts/access.py resolve <group>` prints.
+7. **Verify.** Sign in as a test member of one group. Confirm Customize > Plugins shows exactly what `uv run scripts/access.py resolve <group>` prints.
 
 ## Change process
 
@@ -83,10 +83,10 @@ Group overrides survive re-syncs. They are removed only if the plugin is deleted
 ## Tooling
 
 ```bash
-python scripts/access.py check                          # policy is valid and covers every plugin
-python scripts/access.py resolve claude-sales claude-marketing   # what a member of both gets
-python scripts/access.py matrix --write                 # regenerate access-matrix.md
-python scripts/validate.py                              # runs all of the above checks too
+uv run scripts/access.py check                          # policy is valid and covers every plugin
+uv run scripts/access.py resolve claude-sales claude-marketing   # what a member of both gets
+uv run scripts/access.py matrix --write                 # regenerate access-matrix.md
+uv run scripts/validate.py                              # runs all of the above checks too
 ```
 
 `validate.py` fails CI when:

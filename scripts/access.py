@@ -5,11 +5,11 @@ The policy lives in enterprise/plugin-access.yaml. It records what an admin sets
 in Claude's Organization settings > Plugins & skills on Enterprise.
 
 Usage:
-    python scripts/access.py check                       # validate the policy
-    python scripts/access.py matrix                      # print the access matrix
-    python scripts/access.py matrix --write              # regenerate docs/enterprise/access-matrix.md
-    python scripts/access.py matrix --check              # fail if that file is out of date
-    python scripts/access.py resolve claude-hr claude-sales   # what a member of these groups gets
+    uv run scripts/access.py check                       # validate the policy
+    uv run scripts/access.py matrix                      # print the access matrix
+    uv run scripts/access.py matrix --write              # regenerate docs/enterprise/access-matrix.md
+    uv run scripts/access.py matrix --check              # fail if that file is out of date
+    uv run scripts/access.py resolve claude-hr claude-sales   # what a member of these groups gets
 """
 
 from __future__ import annotations
@@ -140,7 +140,7 @@ def render_matrix(policy: dict) -> str:
         "# Plugin access matrix",
         "",
         "Generated from [`enterprise/plugin-access.yaml`](../../enterprise/plugin-access.yaml) by "
-        "`python scripts/access.py matrix --write`. Do not edit by hand.",
+        "`uv run scripts/access.py matrix --write`. Do not edit by hand.",
         "",
         "Each cell is what a member of only that group gets. **Bold** is a group override; "
         "plain text is the org default. A member in several groups gets the most permissive cell "
@@ -194,7 +194,7 @@ def main() -> int:
     if errors:
         for message in errors:
             print(f"error: {message}")
-        print("Fix the policy first: python scripts/access.py check")
+        print("Fix the policy first: uv run scripts/access.py check")
         return 1
 
     if args.command == "matrix":
@@ -206,7 +206,7 @@ def main() -> int:
         elif args.check:
             current = MATRIX_DOC.read_text(encoding="utf-8") if MATRIX_DOC.exists() else ""
             if current != text:
-                print(f"error: {MATRIX_DOC.relative_to(ROOT)} is out of date. Run: python scripts/access.py matrix --write")
+                print(f"error: {MATRIX_DOC.relative_to(ROOT)} is out of date. Run: uv run scripts/access.py matrix --write")
                 return 1
             print(f"{MATRIX_DOC.relative_to(ROOT)} is up to date.")
         else:

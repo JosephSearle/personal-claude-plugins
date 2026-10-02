@@ -38,7 +38,7 @@ One person can hold several roles, except that the author cannot be the champion
 
 Check once per person before their first release.
 
-- [ ] Author: Python 3.12 with `pip install pyyaml`, and Claude Code (`claude --version`).
+- [ ] Author: [uv](https://docs.astral.sh/uv/) installed, and Claude Code (`claude --version`).
 - [ ] Champion: member of the `claude-pilot` Entra group, and allowed to add plugins for themselves in Customize > Plugins (Claude admin enables this in Organization settings > Plugins & skills > **Policy**).
 - [ ] Claude admin: the marketplace's default access in Organization settings > Plugins & skills is **Not available**, so a newly synced plugin reaches nobody until step C4.
 - [ ] Repository: branch protection on `main` requires CI to pass and requires review from code owners.
@@ -62,8 +62,8 @@ Check once per person before their first release.
    Then add `/plugins/<name>/` to `.github/CODEOWNERS` with the department's champions team.
 4. Regenerate the access matrix and run the checks:
    ```bash
-   python scripts/access.py matrix --write
-   python scripts/validate.py --base origin/main
+   uv run scripts/access.py matrix --write
+   uv run scripts/validate.py --base origin/main
    claude plugin validate .
    ```
    Expected: `0 errors` from `validate.py` and `√ Validation passed` from `claude plugin validate`.
@@ -93,8 +93,8 @@ Done by the champion, from the pull request build. Nothing reaches other users y
 4. **New plugin only.** Claude admin: open `<name>` menu > **Default access** > **Not available**. Then **Group access...** > **Add groups** > `claude-pilot` > **Installed by default**. These match the plugin's lines under "Console settings" in [access-matrix.md](../enterprise/access-matrix.md).
 5. Expected result:
    ```bash
-   python scripts/access.py resolve claude-pilot     # new plugin: Installed by default
-   python scripts/access.py resolve claude-hr        # new plugin: Not available
+   uv run scripts/access.py resolve claude-pilot     # new plugin: Installed by default
+   uv run scripts/access.py resolve claude-hr        # new plugin: Not available
    ```
    Confirm with a test account in one group: Customize > Plugins shows the same.
 6. Members get the change on their next session.
@@ -124,7 +124,7 @@ After the pilot group has used a new plugin. The champion decides when.
    - change `stage: pilot` to `stage: released`
    - add the department grants, e.g. `claude-hr: installed-by-default`
    - keep or remove `claude-pilot`
-2. Run `python scripts/access.py matrix --write` and commit the updated matrix.
+2. Run `uv run scripts/access.py matrix --write` and commit the updated matrix.
 3. Champion approves. Merge.
 4. Claude admin: apply the plugin's new lines under "Console settings" in [access-matrix.md](../enterprise/access-matrix.md) (**Group access...** > **Add groups**).
 5. Microsoft 365 admin: repeat [D4](#d-release-to-microsoft-365-copilot) with the new groups.

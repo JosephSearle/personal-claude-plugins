@@ -5,8 +5,8 @@ Checks the rules both Claude org sync and Microsoft 365 Copilot (Cowork)
 enforce, plus repo governance rules.
 
 Usage:
-    python scripts/validate.py
-    python scripts/validate.py --base origin/main   # also require version bumps
+    uv run scripts/validate.py
+    uv run scripts/validate.py --base origin/main   # also require version bumps
 """
 
 from __future__ import annotations
@@ -209,7 +209,7 @@ def check_access_policy(plugin_names: list[str]) -> None:
         return
     current = access.MATRIX_DOC.read_text(encoding="utf-8") if access.MATRIX_DOC.exists() else ""
     if current != access.render_matrix(policy):
-        error("docs/enterprise/access-matrix.md is out of date. Run: python scripts/access.py matrix --write")
+        error("docs/enterprise/access-matrix.md is out of date. Run: uv run scripts/access.py matrix --write")
 
 
 def git(*args: str) -> str:

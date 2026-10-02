@@ -115,7 +115,7 @@ On Enterprise, each plugin gets an organisation-wide access level plus per-group
 [`enterprise/plugin-access.yaml`](enterprise/plugin-access.yaml) records what the admin console should say. CI checks it covers every plugin and uses only overrides that hold.
 
 ```bash
-python scripts/access.py resolve claude-hr     # what an HR member gets
+uv run scripts/access.py resolve claude-hr     # what an HR member gets
 ```
 
 Runbook, rules and spike findings: [docs/enterprise](docs/enterprise/README.md). Current settings: [access matrix](docs/enterprise/access-matrix.md).
@@ -135,7 +135,7 @@ Every change goes through a pull request and must pass CI before merging.
    - the plugin version is bumped when its files change
 2. The department champion pilot-tests the pull request build and approves. See [Promote a plugin release](docs/runbooks/promote-plugin-release.md).
 
-See [Contributing](#contributing) for how to run these checks locally before opening a pull request.
+[Contributing](#contributing) sets up a pre-commit hook that runs `scripts/validate.py` automatically, plus how to run the remaining checks by hand before opening a pull request.
 
 ## Versioning
 
@@ -184,11 +184,19 @@ Maintained by [Joseph Searle](https://github.com/JosephSearle). See [CODEOWNERS]
 
 ## Contributing
 
-Open a pull request against `main`. See [Governance](#governance) for the review and rollout process. Before submitting, run the same checks CI runs:
+Open a pull request against `main`. See [Governance](#governance) for the review and rollout process.
+
+One-time setup, so checks run automatically before every commit:
 
 ```bash
-pip install pyyaml
-python scripts/validate.py
+uv sync
+uv run lefthook install
+```
+
+This runs `scripts/validate.py` on every commit that touches `plugins/`, `scripts/`, `.claude-plugin/`, `enterprise/` or `docs/enterprise/`. To run it by hand, or run the remaining checks CI runs:
+
+```bash
+uv run scripts/validate.py
 claude plugin validate .
 ```
 

@@ -5,8 +5,8 @@ A pilot tester uploads the zip for themselves (Customize > Plugins) to try a
 change before it merges. An admin can upload one to an organization marketplace.
 
 Usage:
-    python scripts/package-plugin.py hr-recruiting core       # named plugins
-    python scripts/package-plugin.py --changed --base origin/main   # plugins changed on this branch
+    uv run scripts/package-plugin.py hr-recruiting core       # named plugins
+    uv run scripts/package-plugin.py --changed --base origin/main   # plugins changed on this branch
 
 Output: build/claude/<plugin>-<version>.zip, with .claude-plugin/ and skills/ at
 the zip root.

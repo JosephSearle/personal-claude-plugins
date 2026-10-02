@@ -31,20 +31,18 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: actions/setup-python@v5
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
         with:
           python-version: "3.12"
 
-      - name: Install dependencies
-        run: pip install pyyaml
-
       - name: Validate marketplace (pull request)
         if: github.event_name == 'pull_request'
-        run: python scripts/validate.py --base origin/${{ github.base_ref }}
+        run: uv run scripts/validate.py --base origin/${{ github.base_ref }}
 
       - name: Validate marketplace (push)
         if: github.event_name == 'push'
-        run: python scripts/validate.py
+        run: uv run scripts/validate.py
 
   # Pilot testers download these from the pull request's checks page and upload
   # them for themselves. See docs/runbooks/promote-plugin-release.md.
@@ -57,14 +55,15 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: actions/setup-python@v5
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
         with:
           python-version: "3.12"
 
       - name: Package changed plugins
         id: package
         run: |
-          python scripts/package-plugin.py --changed --base origin/${{ github.base_ref }}
+          uv run scripts/package-plugin.py --changed --base origin/${{ github.base_ref }}
           if compgen -G "build/claude/*.zip" > /dev/null; then
             echo "built=true" >> "$GITHUB_OUTPUT"
           fi

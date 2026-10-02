@@ -1,0 +1,5 @@
+pre-commit:
+  commands:
+    validate-marketplace:
+      glob: "{plugins/**,scripts/**,.claude-plugin/**,enterprise/**,docs/enterprise/**}"
+      run: uv run scripts/validate.py

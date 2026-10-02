@@ -1,6 +1,6 @@
 # Plugin access matrix
 
-Generated from [`enterprise/plugin-access.yaml`](../../enterprise/plugin-access.yaml) by `python scripts/access.py matrix --write`. Do not edit by hand.
+Generated from [`enterprise/plugin-access.yaml`](../../enterprise/plugin-access.yaml) by `uv run scripts/access.py matrix --write`. Do not edit by hand.
 
 Each cell is what a member of only that group gets. **Bold** is a group override; plain text is the org default. A member in several groups gets the most permissive cell in their row.
 
